@@ -1,3 +1,5 @@
 pip install transformers == 4.33.1
 pip install sentencepiece == 0.1.99
 pip install sacremoses == 0.0.53
+pip install SpeechRecognition == 3.10.0
+pip install PyAudio == 0.2.14
