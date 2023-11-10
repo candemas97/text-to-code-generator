@@ -1,5 +1,6 @@
-pip install transformers == 4.33.1
-pip install sentencepiece == 0.1.99
-pip install sacremoses == 0.0.53
-pip install SpeechRecognition == 3.10.0
-pip install PyAudio == 0.2.14
+# To Download all libraries please run in your terminal: pip install -r requirements.txt
+transformers == 4.33.1
+sentencepiece == 0.1.99
+sacremoses == 0.0.53
+SpeechRecognition == 3.10.0
+PyAudio == 0.2.14
