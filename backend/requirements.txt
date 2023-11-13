@@ -1,6 +1,6 @@
 # To Download all libraries please run in your terminal: pip install -r requirements.txt
-transformers == 4.33.1
-sentencepiece == 0.1.99
-sacremoses == 0.0.53
-SpeechRecognition == 3.10.0
-PyAudio == 0.2.14
+transformers==4.33.1
+sentencepiece==0.1.99
+sacremoses==0.0.53
+SpeechRecognition==3.10.0
+PyAudio==0.2.14
