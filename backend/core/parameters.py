@@ -1,3 +1,9 @@
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+
 class Args:
     # define training arguments
 
@@ -24,7 +30,7 @@ class Args:
     epochs = 20
 
     # DIRECTORIES
-    output_dir = "runs/"
+    output_dir = os.getenv("SAVE_PATH")
     logging_dir = f"{output_dir}/logs/"
     checkpoint_dir = f"checkpoint"
     save_dir = f"{output_dir}/saved_model/"  # HERE YOU MUST ADD THE COMPLETE PATH WHERE THE PRETRAINED MODEL IS
