@@ -103,15 +103,14 @@ def predict_from_text(args, text, text_spanish: str = ""):
 def generate_text_to_code_en(query: str) -> str:
     # initialize training arguments
     args = parameters.Args()
-    predict_from_text(args, query)
+    return predict_from_text(args, query)
 
 
 def generate_text_to_code_es(query: str) -> str:
     # initialize training arguments
     args = parameters.Args()
     question = traductor(query)
-    predict_from_text(args, question, query)
-    print()
+    return predict_from_text(args, question, query)
 
 
 def generate_text_to_code(query: str, idioma: str) -> tuple[str]:
