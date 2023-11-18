@@ -1,15 +1,27 @@
 from fastapi import FastAPI, Request, WebSocket
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from pydantic import BaseModel
 import uvicorn
 import sys
 
-sys.path.append("./backend/core")
+# sys.path.append("./backend/core")
+sys.path.append("../core")
 import generate_code
 import voice_recognition
 
 app = FastAPI()
+
+origins = ["*"]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 templates = Jinja2Templates(directory="./frontend")
 
@@ -28,14 +40,12 @@ def get(request: Request):
 async def translating_to_code(traduccion_codigo: CodeGeneration):
     print(traduccion_codigo.dict())
     translate_to_code = traduccion_codigo.dict()
-    text_spanish, text, decoded_code = generate_code.generate_text_to_code(
-        translate_to_code["query"], translate_to_code["idioma"]
-    )
+    text_spanish, text, decoded_code = generate_code.generate_text_to_code(translate_to_code["query"], translate_to_code["idioma"])
     print(text_spanish, text, decoded_code)
     return {
-        "texto en español": str(text_spanish),
-        "texto en ingles": str(text),
-        "codigo generado": str(decoded_code),
+        "textEs": str(text_spanish),
+        "textEN": str(text),
+        "generateCode": str(decoded_code),
     }
 
 
@@ -47,14 +57,10 @@ async def websocket_endpoint(websocket: WebSocket):
     try:
         await websocket.receive_bytes()  # Hace que se imprima texto en frontend
 
-        print(
-            "Por favor empieza a hablar lo que quieres transcribir"
-        )  # Esto es para consola, se puede quitar
+        print("Por favor empieza a hablar lo que quieres transcribir")  # Esto es para consola, se puede quitar
 
         # Indica en pantalla que ya puede empezar a hablar
-        await websocket.send_text(
-            "Por favor empieza a hablar lo que quieres transcribir..."
-        )
+        await websocket.send_text("Por favor empieza a hablar lo que quieres transcribir...")
         # Se traduce lo hablado a texto
         audio_reconocido = voice_recognition.reconocimiento_audio("spanish")
 
@@ -77,9 +83,7 @@ async def websocket_endpoint(websocket: WebSocket):
     try:
         await websocket.receive_bytes()  # Hace que se imprima texto en frontend
 
-        print(
-            "Start talking what you want to transcribe"
-        )  # Esto es para consola, se puede quitar
+        print("Start talking what you want to transcribe")  # Esto es para consola, se puede quitar
 
         # Indica en pantalla que ya puede empezar a hablar
         await websocket.send_text("Please start talking what you want to transcribe...")

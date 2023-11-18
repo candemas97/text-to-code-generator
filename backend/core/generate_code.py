@@ -1,4 +1,4 @@
-# pip install transformers == 4.33.1
+# pip install transformers==4.33.1
 # pip install sentencepiece == 0.1.99
 # pip install sacremoses == 0.0.53
 
@@ -17,12 +17,8 @@ def traductor(pregunta: str) -> str:
     Returns:
         str: Pregunta en inglés
     """
-    translator = transformers.pipeline(
-        "translation_es_to_en", model="Helsinki-NLP/opus-mt-es-en"
-    )
-    english_quesion = translator(
-        pregunta, clean_up_tokenization_spaces=True, truncation=True
-    )
+    translator = transformers.pipeline("translation_es_to_en", model="Helsinki-NLP/opus-mt-es-en")
+    english_quesion = translator(pregunta, clean_up_tokenization_spaces=True, truncation=True)
     return english_quesion[0]["translation_text"]
 
 
@@ -123,7 +119,6 @@ def generate_text_to_code(query: str, idioma: str) -> tuple[str]:
 
 
 if __name__ == "__main__":
-    generate_text_to_code("Funcion que divida por numeros pares", "spanish")
-    generate_text_to_code(
-        "Generate a Function that raise to the power of any number", "english"
-    )
+    traductor("Funcion que divida por numeros pares")
+    # generate_text_to_code("Funcion que divida por numeros pares", "spanish")
+    # generate_text_to_code("Generate a Function that raise to the power of any number", "english")

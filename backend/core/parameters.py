@@ -35,3 +35,6 @@ class Args:
     checkpoint_dir = f"checkpoint"
     save_dir = f"{output_dir}/saved_model/"  # HERE YOU MUST ADD THE COMPLETE PATH WHERE THE PRETRAINED MODEL IS
     cache_dir = "../working/"
+
+if __name__ == "__main__":
+    print(os.getenv("SAVE_PATH"))
