@@ -9,6 +9,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "highlight.js": "^11.9.0",
+    "sass": "^1.69.5",
     "vue": "^3.3.4"
   },
   "devDependencies": {

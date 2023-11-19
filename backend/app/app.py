@@ -43,7 +43,7 @@ async def translating_to_code(traduccion_codigo: CodeGeneration):
     text_spanish, text, decoded_code = generate_code.generate_text_to_code(translate_to_code["query"], translate_to_code["idioma"])
     print(text_spanish, text, decoded_code)
     return {
-        "textEs": str(text_spanish),
+        "textES": str(text_spanish),
         "textEN": str(text),
         "generateCode": str(decoded_code),
     }
