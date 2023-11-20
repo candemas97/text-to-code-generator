@@ -6,3 +6,4 @@ SpeechRecognition==3.10.0
 PyAudio==0.2.14
 "fastapi[all]"==0.104.1
 uvicorn==0.24.0.post1
+datasets==2.15.0

@@ -2,9 +2,15 @@
 # pip install sentencepiece == 0.1.99
 # pip install sacremoses == 0.0.53
 
+from dotenv import load_dotenv
 import transformers
 import random
 import parameters
+import tensorflow as tf
+import datasets
+import os
+
+load_dotenv()
 
 
 # Se entrena modelo con traductor español - inglés
@@ -17,8 +23,12 @@ def traductor(pregunta: str) -> str:
     Returns:
         str: Pregunta en inglés
     """
-    translator = transformers.pipeline("translation_es_to_en", model="Helsinki-NLP/opus-mt-es-en")
-    english_quesion = translator(pregunta, clean_up_tokenization_spaces=True, truncation=True)
+    translator = transformers.pipeline(
+        "translation_es_to_en", model="Helsinki-NLP/opus-mt-es-en"
+    )
+    english_quesion = translator(
+        pregunta, clean_up_tokenization_spaces=True, truncation=True
+    )
     return english_quesion[0]["translation_text"]
 
 
@@ -56,7 +66,10 @@ def run_predict(args, text):
 
 def predict_from_dataset(args):
     # load using hf datasets
-    dataset = load_dataset("json", data_files="../working/mbpp.jsonl")
+    dataset = datasets.load_dataset(
+        "json",
+        data_files=os.getenv("DATA_PATH"),
+    )
     # train test split
     dataset = dataset["train"].train_test_split(0.1, shuffle=False)
     test_dataset = dataset["test"]
@@ -119,6 +132,8 @@ def generate_text_to_code(query: str, idioma: str) -> tuple[str]:
 
 
 if __name__ == "__main__":
-    traductor("Funcion que divida por numeros pares")
+    args = parameters.Args()
+    predict_from_dataset(args)
+    # traductor("Funcion que divida por numeros pares")
     # generate_text_to_code("Funcion que divida por numeros pares", "spanish")
     # generate_text_to_code("Generate a Function that raise to the power of any number", "english")
